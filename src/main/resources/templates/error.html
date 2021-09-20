@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Error', 'Error page')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2>Ouchi!</h2>
+    <p>Something bad happened!</p>
+    <ul th:each="error : ${errors}">
+        <li th:text="${error}"></li>
+    </ul>
+</main>
+</body>
+</html>

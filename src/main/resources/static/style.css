@@ -1,0 +1,83 @@
+:root {
+    --main-bg-color: #79ca70;
+    --main-fg-color: #18240b;
+    --head-bg-color: var(--main-fg-color);
+    --head-fg-color: var(--main-bg-color);
+}
+
+header {
+    color: var(--head-fg-color);
+    background-color: var(--head-bg-color);
+    padding: 1em;
+}
+
+header a {
+    color: var(--head-fg-color);
+}
+
+.center {
+    align-self: center;
+}
+
+header .grow {
+    flex-grow: 1;
+}
+
+header .rAlign {
+    text-align: right;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--main-fg-color);
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: var(--main-fg-color);
+}
+
+main {
+    margin: 1em;
+}
+
+table, th, td {
+    border: 1px solid var(--main-fg-color);
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+table {
+    width: 100%;
+    max-width: 40em;
+}
+
+.tableCellUsername {
+    text-align: right;
+}
+
+.hbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.vbox {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    width: 10em;
+    display: block;
+}
+
+a.enabled {
+}
+
+a.disabled {
+    color: dimgrey;
+    pointer-events: none;
+}

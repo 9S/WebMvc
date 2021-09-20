@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Login', 'Login Page')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2 class="login-box-msg">Sign in</h2>
+    <p class="error" th:if="${loginError}">Wrong user or password</p>
+    <form method="post" th:action="@{/login}">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                Invalid username or password.
+            </div>
+        </div>
+        <div class="hbox">
+            <label for="inputUsername">Email:</label>
+            <input id="inputUsername" name="username" placeholder="Email" type="email">
+        </div>
+        <div class="hbox">
+            <label for="inputPassword">Password:</label>
+            <input id="inputPassword" name="password" placeholder="Password" type="password">
+        </div>
+        <div style="height: 1em"></div>
+        <div>
+            <button type="submit">Sign In</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

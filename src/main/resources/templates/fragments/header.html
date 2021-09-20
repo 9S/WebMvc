@@ -1,0 +1,14 @@
+<header class="hbox center" th:fragment="header">
+    <h1 class="center"><a th:href="@{~/}">Wonderful Page</a></h1>
+    <div class="grow"></div>
+    <div class="vbox rAlign">
+        <div sec:authorize="isAuthenticated()" class="vbox">
+            <p>Currently logged in as <span sec:authentication="name"></span></p>
+            <p><a th:href="@{~/user/logout}">Logout</a></p>
+        </div>
+        <div sec:authorize="isAnonymous()" class="vbox">
+            <p><a th:href="@{~/login}">Login</a></p>
+            <p><a th:href="@{~/user/register}">Register</a></p>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Adding your Number', 'Page for adding favourite numbers')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2>What is your favourite number?</h2>
+    <!--/*@thymesVar id="com.example.webmvc.favouriteNumber" type="com.example.webmvc.favouriteNumber.FavouriteNumber"*/-->
+    <form action="#" method="post" th:action="@{/saveNumber}" th:object="${favouriteNumber}">
+        <div class="hbox">
+            <label for="inputNumber">Number:</label>
+            <input id="inputNumber" min="0" th:field="*{number}" type="number">
+        </div>
+        <div style="height: 1em"></div>
+        <button type="submit">Submit</button>
+    </form>
+    <a th:href="@{/listNumbers}"><p>Take me straight to the results</p></a>
+</main>
+</body>
+</html>

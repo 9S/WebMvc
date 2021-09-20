@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head('Number List','Contains a list of all cool numbers')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2>People have picked numbers:</h2>
+    <a th:href="@{/addNumber}"><p>Add another number</p></a>
+    <table>
+        <thead>
+            <tr><th>Username</th><th>Number</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="number : ${numbers}" th:id="'number_' +${number.id}">
+                <td class="tableCellUsername" th:if="${number.getUser()}" th:text="${number.getUser().getUsername()}"></td>
+                <td class="tableCellUsername" th:unless="${number.getUser()}"></td>
+                <td th:text="${number.getNumber()}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="height: 2em"></div>
+    <div class="hbox">
+        <a th:if="${back_page >= 0}"
+           class="center enabled"
+           th:href="@{/listNumbers(result_count=${selected_result_count},page=${back_page})}">Back</a>
+        <a th:unless="${back_page >= 0}" class="center disabled">Back</a>
+        <p style="margin: 10px">Selected Page: <span th:text="${selected_page}"></span></p>
+        <a th:if="${next_page < max_page}"
+           class="center enabled"
+           th:href="@{/listNumbers(result_count=${selected_result_count},page=${next_page})}">Next</a>
+        <a th:unless="${next_page < max_page}" class="center disabled">Next</a>
+
+    </div>
+    <form method="get" class="hbox">
+        <label for="result_count">Results per Page:</label>
+        <select id="result_count" name="result_count" onchange="this.form.submit()">
+            <option th:each="result_count : ${valid_result_counts}"
+                    th:selected="${result_count == selected_result_count}"
+                    th:text="${result_count}"
+                    th:value="${result_count}"></option>
+        </select>
+    </form>
+</main>
+</body>
+</html>

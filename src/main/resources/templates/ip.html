@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('IP Display', 'A Site that displays IP addresses')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2>Your IP Address</h2>
+    <p>You are connected via <span th:text="${ipVersion}"></span> from IP <span th:text="${ipAddress}"></span></p>
+</main>
+</body>
+</html>

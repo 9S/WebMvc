@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Registration', 'Registration Page')"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h2>Register a new user</h2>
+    <form method="post" th:object="${user}">
+        <div class="hbox">
+            <label for="username_input">Username:</label>
+            <input id="username_input" th:field="*{username}" type="text" placeholder="Username">
+            <div class="vbox">
+                <p style="margin: 0" th:each="error: ${#fields.errors('username')}" th:text="${error}">Validation Error</p>
+            </div>
+        </div>
+
+        <div class="hbox">
+            <label for="email_input">Email:</label>
+            <input id="email_input" th:field="*{email}" type="email" placeholder="Email">
+            <div class="vbox">
+                <p style="margin: 0" th:each="error: ${#fields.errors('email')}" th:text="${error}">Validation Error</p>
+            </div>
+        </div>
+
+        <div class="hbox">
+            <label for="password1_input">Password:</label>
+            <input id="password1_input" th:field="*{password}" type="password" placeholder="Password">
+            <div class="vbox">
+                <p style="margin: 0" th:each="error: ${#fields.errors('password')}" th:text="${error}">Validation Error</p>
+            </div>
+        </div>
+
+        <div class="hbox">
+            <label for="password2_input">Confirm Password:</label>
+            <input id="password2_input" th:field="*{password_2}" type="password" placeholder="Password">
+            <div class="vbox">
+                <p style="margin: 0" th:each="error: ${#fields.errors('password_2')}" th:text="${error}">Validation Error</p>
+            </div>
+        </div>
+        <div style="height: 1em"></div>
+        <button type="submit">Register</button>
+        <ul th:each="err: ${#fields.globalErrors()}">
+            <li th:text="${err}"></li>
+        </ul>
+    </form>
+
+</main>
+</body>
+</html>
