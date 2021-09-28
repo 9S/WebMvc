@@ -9,7 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
@@ -27,23 +27,23 @@ class FavouriteNumberControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private FavouriteNumberService service;
+    private UserService userService;
 
     @MockBean
-    private UserService userService;
+    private FavouriteNumberService service;
 
     final String loginURL = "http{s?}://*/login";
 
     @Test
     @WithMockUser
     void saveNumber() throws Exception {
-        this.mvc.perform(post("/saveNumber", new FavouriteNumber(5, 60L)))
-                .andExpect(status().is4xxClientError());
+        this.mvc.perform(post("/saveNumber", new FavouriteNumber(42L, 60)))
+                .andExpect(status().isOk());
     }
 
     @Test
     void saveNumber_redirect() throws Exception {
-        this.mvc.perform(post("/saveNumber", new FavouriteNumber(48, 90L)))
+        this.mvc.perform(post("/saveNumber", new FavouriteNumber(48L, 90)))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern(loginURL));
     }
@@ -67,8 +67,8 @@ class FavouriteNumberControllerTest {
     @Test
     @WithMockUser
     void listNumbers_withOneEntry() throws Exception {
-        when(service.getPaginated(anyInt(), anyInt())).thenReturn(Arrays.asList(
-                new FavouriteNumber(10, 1L)
+        when(service.getPaginated(anyInt(), anyInt())).thenReturn(List.of(
+                new FavouriteNumber(10L, 1)
         ));
 
         when(service.getNumberCount()).thenReturn(1L);
@@ -76,8 +76,8 @@ class FavouriteNumberControllerTest {
         this.mvc.perform(get("/listNumbers"))
                 .andExpect(status().isOk())
                 // Table contains the number
-                .andExpect(content().string(containsString("<tr id=\"number_1\">")))
-                .andExpect(content().string(containsString("<td>10</td>")))
+                .andExpect(content().string(containsString("<tr id=\"number_10\">")))
+                .andExpect(content().string(containsString("<td>1</td>")))
                 // Back and Next buttons are disabled
                 .andExpect(content().string(containsString("disabled\">Back</a>")))
                 .andExpect(content().string(containsString("disabled\">Next</a>")));
@@ -88,7 +88,7 @@ class FavouriteNumberControllerTest {
     void listNumbers_withMultipleEntries() throws Exception {
         var numbers = new ArrayList<FavouriteNumber>();
         for (int i = 0; i < 5; i++) {
-            numbers.add(new FavouriteNumber(i * 10, (long) i));
+            numbers.add(new FavouriteNumber((long) i, i * 10));
         }
         when(service.getPaginated(anyInt(), anyInt())).thenReturn(numbers);
 
